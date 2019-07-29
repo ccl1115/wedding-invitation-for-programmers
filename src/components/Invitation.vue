@@ -6,27 +6,11 @@
                     <swiper :options="swiperOptions" ref="swiper">
                         <swiper-slide class="swiper-content swiper-no-swiping">
                             <div class="content-inside">
-                                <swiper :options="imgSwiperOptions">
-                                    <swiper-slide>
-                                        <img class="content-inside-photo" src="../images/photo.jpg">
-                                    </swiper-slide>
-                                    <swiper-slide>
-                                        <img class="content-inside-photo" src="../images/002.png">
-                                    </swiper-slide>
-                                </swiper>
+                                <img class="content-inside-photo" src="../images/photo001.jpeg">
                                 <h1>我们结婚啦!</h1>
                                 <p><b>李思颖 & 禹璐</b></p>
                                 <p>时间：2019年8月25日下午6点</p>
                                 <p>地点：<b>凯里市半山酒店3楼</b></p>
-                                <input
-                                        class="content-inside-input"
-                                        placeholder="轻触写下祝福，按回车发送"
-                                        @keyup.enter="sendBarrage"
-                                        @focus="isFocused = true"
-                                        @blur="isFocused = false, hasEntered = false"
-                                        v-model="wish"
-                                        ref="wishInput">
-                                <p v-if="!wish && isFocused && hasEntered">请输入祝福哦</p>
                                 <button class="attend" @click="attend">我要出席</button>
                             </div>
                         </swiper-slide>
@@ -42,6 +26,10 @@
                                     <div>
                                         <label for="count"> 人数 </label>
                                         <input v-model="form.count" id="count" type="number"/>
+                                    </div>
+                                    <div>
+                                        <label for="phone"> 电话 </label>
+                                        <input v-model="form.phone" id="phone" type="number"/>
                                     </div>
 
                                     <button type="submit" @click="submit">提交</button>
@@ -70,7 +58,6 @@
                 hasEntered: false,
                 imgSwiperOptions: {
                     loop: true,
-                    activeIndex: 0,
                     effect: 'cube'
                 },
                 swiperOptions: {
@@ -80,6 +67,7 @@
                 form: {
                     name: '',
                     count: 1,
+                    phone: '',
                 }
             }
         },
@@ -103,7 +91,7 @@
                 })
             },
             submit() {
-
+                this.$router.push('/photos');
             },
             attend() {
                 this.$refs.swiper.swiper.slideTo(1);
@@ -116,6 +104,9 @@
 </script>
 
 <style lang="less">
+    button {
+        outline: none;
+    }
     .wedding-invitation {
         position: fixed;
         top: 0;
@@ -182,7 +173,7 @@
                     }
 
                     .content-inside {
-                        height: 100%;
+                        height: 90vh;
                         padding: 20px;
                         color: #a9895d;
                         background-color: #FFF1DE;
@@ -197,6 +188,10 @@
                             border: 1px solid #f7debb;
                             height: 300px;
                             object-fit: cover;
+                        }
+
+                        h1 {
+                            color: #ff5b34;
                         }
 
                         p {

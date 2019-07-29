@@ -1,14 +1,15 @@
 import Vue from 'vue'
-import Wedding from './Wedding.vue'
 import VueAwesomeSwiper from 'vue-awesome-swiper'
+import {router} from './router'
 
 // require styles
 import 'swiper/dist/css/swiper.css'
+import App from "./App";
 
 Vue.use(VueAwesomeSwiper, /* { default global options } */)
 
 /* eslint-disable no-new */
 new Vue({
-  el: '#app',
-  render: h => h(Wedding)
-})
+    router,
+    render: h => h(App)
+}).$mount('#app');
