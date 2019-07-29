@@ -15,19 +15,28 @@
                     <img src="../images/32611564399986_pic_hd.jpg"/>
                     <div class="divider">
                         <p>Sans toi les émotions d'aujourd'hui ne seraient que la peau morte des émotions d'autrefois.</p>
-                        <span>--Le fabuleux destin d'Amélie Poulai</span>
+                        <span>--- Le fabuleux destin d'Amélie Poulai</span>
                     </div>
                     <img src="../images/32431564399658_pic_hd.jpg"/>
                     <div class="divider">
                         <p>You had me at hello <br></p>
-                        <span>--Jerry Maguire</span>
+                        <span>--- Jerry Maguire</span>
                     </div>
                     <img src="../images/32461564399681_pic_hd.jpg"/>
-                    <div class="divider"></div>
+                    <div class="divider">
+                        <p>Take me away from this big bad world, and agree to marry me.</p>
+                        <span>--- Coffee & TV by Blur</span>
+                    </div>
                     <img src="../images/31971564396702_pic_hd.jpg"/>
-                    <div class="divider"></div>
+                    <div class="divider">
+                        <p>I promise you, sing to you when all the music die.</p>
+                        <span>--- Marry me by Train</span>
+                    </div>
                     <img src="../images/18871561469146_pic_hd.jpg"/>
-                    <div class="divider"></div>
+                    <div class="divider">
+                        <p>She's the one that gonna save me</p>
+                        <span>--- And I love her by Passenger</span>
+                    </div>
                     <img src="../images/32621564399991_pic_hd.jpg"/>
                     <div class="divider small"></div>
                     <img class="portrait" src="../images/22361563083088_pic_hd.jpg"/>
