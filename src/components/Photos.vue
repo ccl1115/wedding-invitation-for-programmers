@@ -6,52 +6,52 @@
                 <div class="thanks">
                     <h2>感谢你的出席与见证!</h2>
                     <h5>向下滑动</h5>
-                    <img src="../images/arrow_downward_black_18dp.png"/>
+                    <img src="https://wedding-store.oss-cn-chengdu.aliyuncs.com/arrow_downward_black_18dp.png"/>
                     <div class="placeholder"></div>
                     <h4>旋转手机90度</h4>
                 </div>
                 <div class="landscape">
                     <div class="divider white"></div>
-                    <img src="../images/32611564399986_pic_hd.jpg"/>
+                    <img src="https://wedding-store.oss-cn-chengdu.aliyuncs.com/32611564399986_pic_hd.jpg"/>
                     <div class="divider">
                         <p>Sans toi les émotions d'aujourd'hui ne seraient que la peau morte des émotions d'autrefois.</p>
                         <span>--- Le fabuleux destin d'Amélie Poulai</span>
                     </div>
-                    <img src="../images/32431564399658_pic_hd.jpg"/>
+                    <img src="https://wedding-store.oss-cn-chengdu.aliyuncs.com/32431564399658_pic_hd.jpg"/>
                     <div class="divider">
                         <p>You had me at hello <br></p>
                         <span>--- Jerry Maguire</span>
                     </div>
-                    <img src="../images/32461564399681_pic_hd.jpg"/>
+                    <img src="https://wedding-store.oss-cn-chengdu.aliyuncs.com/32461564399681_pic_hd.jpg"/>
                     <div class="divider">
                         <p>Take me away from this big bad world, and agree to marry me.</p>
                         <span>--- Coffee & TV by Blur</span>
                     </div>
-                    <img src="../images/31971564396702_pic_hd.jpg"/>
+                    <img src="https://wedding-store.oss-cn-chengdu.aliyuncs.com/31971564396702_pic_hd.jpg"/>
                     <div class="divider">
                         <p>I promise you, sing to you when all the music die.</p>
                         <span>--- Marry me by Train</span>
                     </div>
-                    <img src="../images/18871561469146_pic_hd.jpg"/>
+                    <img src="https://wedding-store.oss-cn-chengdu.aliyuncs.com/18871561469146_pic_hd.jpg"/>
                     <div class="divider">
                         <p>She's the one that gonna save me</p>
                         <span>--- And I love her by Passenger</span>
                     </div>
-                    <img src="../images/32621564399991_pic_hd.jpg"/>
+                    <img src="https://wedding-store.oss-cn-chengdu.aliyuncs.com/32621564399991_pic_hd.jpg"/>
                     <div class="divider small"></div>
-                    <img class="portrait" src="../images/22361563083088_pic_hd.jpg"/>
+                    <img class="portrait" src="https://wedding-store.oss-cn-chengdu.aliyuncs.com/22361563083088_pic_hd.jpg"/>
                     <div class="divider">
                         <p>AND</p>
                     </div>
-                    <img class="portrait" src="../images/32311564397857_pic_hd.jpg"/>
+                    <img class="portrait" src="https://wedding-store.oss-cn-chengdu.aliyuncs.com/32311564397857_pic_hd.jpg"/>
                     <div class="divider large">
                         <p>ARE GONNA BE THE ONE</p>
                     </div>
                 </div>
             </div>
         </transition>
-        <audio id="audio" ref="audio" hidden loop autoplay src="/audios/marryme.mp3"></audio>
-        <img alt="Marry Me" class="music" src="../images/audiotrack_white_18dp.png" @click="play"/>
+        <audio id="audio" ref="audio" hidden loop autoplay src="https://wedding-store.oss-cn-chengdu.aliyuncs.com/marryme.mp3"></audio>
+        <img alt="Marry Me" class="music" src="https://wedding-store.oss-cn-chengdu.aliyuncs.com/audiotrack_white_18dp.png" @click="play"/>
     </div>
 </template>
 
