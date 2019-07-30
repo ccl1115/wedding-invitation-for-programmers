@@ -6,7 +6,7 @@
                     <swiper :options="swiperOptions" ref="swiper">
                         <swiper-slide class="swiper-content swiper-no-swiping">
                             <div class="content-inside">
-                                <img class="content-inside-photo" src="../images/photo001.jpeg">
+                                <img class="content-inside-photo" src="https://wedding-store.oss-cn-chengdu.aliyuncs.com/photo001.jpeg">
                                 <h1>我们结婚啦!</h1>
                                 <p><b>李思颖 & 禹璐</b></p>
                                 <p>时间：2019年8月25日下午6点</p>
@@ -16,7 +16,7 @@
                         </swiper-slide>
                         <swiper-slide class="swiper-content swiper-no-swiping">
                             <div class="content-inside">
-                                <img src="../images/baseline_arrow_back_black_18dp.png" @click="back"/>
+                                <img src="https://wedding-store.oss-cn-chengdu.aliyuncs.com/baseline_arrow_back_black_18dp.png" @click="back"/>
                                 <h1>出席婚礼</h1>
                                 <form>
                                     <div>
@@ -40,7 +40,7 @@
                 </div>
                 <div class="cover-inside-left" :class="{'opening':isOpening}"></div>
                 <div class="cover-inside-right" :class="{'opening':isOpening}"></div>
-                <img class="cover-inside-seal" src="../images/seal.png" @click="openInvitation"
+                <img class="cover-inside-seal" src="https://wedding-store.oss-cn-chengdu.aliyuncs.com/seal.png" @click="openInvitation"
                      :class="{'invitation-flight':isOpening}">
             </div>
         </div>
@@ -74,24 +74,35 @@
         methods: {
             // 打开邀请函
             openInvitation() {
-                this.isOpening = true
+                this.isOpening = true;
             },
             // 发送弹幕
             sendBarrage() {
                 this.$nextTick(() => {
-                    this.hasEntered = true
+                    this.hasEntered = true;
                     if (!this.wish) {
-                        return
+                        return;
                     }
-                    this.isOpening = false
-                    this.$refs.wishInput.blur()
+                    this.isOpening = false;
+                    this.$refs.wishInput.blur();
                     setTimeout(() => {
                         this.$emit('sendBarrage', this.wish)
                     }, 660)
                 })
             },
-            submit() {
-                this.$router.push('/photos');
+            async submit() {
+                try {
+                    const response = await this.axios.post('/attends', {
+                        name: this.form.name,
+                        count: this.form.count,
+                        phone: this.form.phone
+                    });
+                    if (response.status === 200) {
+                        this.$router.push('/photos');
+                    }
+                } catch (err) {
+
+                }
             },
             attend() {
                 this.$refs.swiper.swiper.slideTo(1);
