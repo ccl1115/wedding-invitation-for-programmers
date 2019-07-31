@@ -97,7 +97,7 @@
                                     group: 'foo',
                                     text: '请输入正确的信息, 或者稍后再试!',
                                     type: 'warn'
-                                })
+                                });
                             }
                         } catch (err) {
                             this.$notify({
