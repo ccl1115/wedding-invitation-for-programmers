@@ -42,8 +42,8 @@
                                         <input v-model="form.code" id="code" type="number"/>
                                     </div>
 
-                                    <button v-if="loading" @click="submit">提交</button>
-                                    <button v-if="!loading" disabled>加载中...</button>
+                                    <button v-if="!loading" @click="submit">提交</button>
+                                    <button v-if="loading" disabled>加载中...</button>
                                 </div>
                             </div>
                         </swiper-slide>
