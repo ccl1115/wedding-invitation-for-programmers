@@ -83,7 +83,7 @@
             }
         },
         watch: {
-            'form.code': function() {
+            'form.phone': function() {
                 this.sent = false;
             }
         },
