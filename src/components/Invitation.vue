@@ -20,7 +20,7 @@
                                 <img src="https://wedding-store.oss-cn-chengdu.aliyuncs.com/baseline_arrow_back_black_18dp.png"
                                      @click="back"/>
                                 <h1>出席婚礼</h1>
-                                <form>
+                                <div class="form">
                                     <div class="field">
                                         <label for="name"> 姓名 </label>
                                         <input v-model="form.name" id="name" type="text"/>
@@ -43,7 +43,7 @@
                                     </div>
 
                                     <button @click="submit">提交</button>
-                                </form>
+                                </div>
                             </div>
                         </swiper-slide>
                     </swiper>
@@ -328,7 +328,7 @@
                             font-size: 18px;
                         }
 
-                        form {
+                        div.form {
                             h1 {
                                 color: #ff5b34;
                             }
