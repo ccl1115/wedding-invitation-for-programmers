@@ -274,7 +274,7 @@
                             margin-bottom: 10px;
                             padding: 3px;
                             border: 1px solid #f7debb;
-                            height: 300px;
+                            height: 60vw;
                             object-fit: cover;
                         }
 
