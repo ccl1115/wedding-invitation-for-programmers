@@ -8,7 +8,7 @@
             </div>
             <div class="input">
                 <input type="text" v-model="message" placeholder="继续留言..."/>
-                <button @click="submit" v-show="message.length > 0">💏</button>
+                <button @click="submit" v-show="message.length > 0">发送</button>
             </div>
 
         </div>
@@ -117,17 +117,21 @@
         animation-duration: 4s;
         animation-iteration-count: infinite;
         transition: all 0.8s ease-in-out;
+        overflow: hidden;
 
         p {
             font-size: 20px;
             padding: 0 20px;
+            max-width: 80vw;
+            word-break: break-all;
+            max-lines: 4;
         }
     }
 
     .scaleUp {
         left: 10% !important;
         top: 30% !important;
-        width: 300px !important;
+        width: 80% !important;
         height: 150px !important;
         animation: none !important;
     }

@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import VueAwesomeSwiper from 'vue-awesome-swiper';
 import VueScrollReveal from 'vue-scroll-reveal';
+import VueNotification from 'vue-notification';
 import axios from 'axios';
 import VueAxios from 'vue-axios';
 import { router } from './router';
@@ -16,6 +17,7 @@ Vue.use(VueScrollReveal, {
     distance: '30px'
 });
 Vue.use(VueAwesomeSwiper);
+Vue.use(VueNotification);
 
 if (process.env.NODE_ENV === 'development') {
     axios.defaults.baseURL = 'http://localhost:3002'

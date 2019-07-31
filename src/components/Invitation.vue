@@ -32,6 +32,12 @@
                                         <input v-model="form.phone" id="phone" type="number"/>
                                     </div>
 
+                                    <div v-if="sent">
+                                        <p>我们向你的手机发送了一条验证码<br>请查收.</p>
+                                        <label for="code">验证码</label>
+                                        <input v-model="form.code" id="code" type="number"/>
+                                    </div>
+
                                     <button type="submit" @click="submit">提交</button>
                                 </form>
                             </div>
@@ -56,10 +62,6 @@
                 wish: '',
                 isFocused: false,
                 hasEntered: false,
-                imgSwiperOptions: {
-                    loop: true,
-                    effect: 'cube'
-                },
                 swiperOptions: {
                     effect: 'cube',
                     activeIndex: 0
@@ -68,7 +70,9 @@
                     name: '',
                     count: 1,
                     phone: '',
-                }
+                    code: '',
+                },
+                sent: false
             }
         },
         methods: {
@@ -76,32 +80,76 @@
             openInvitation() {
                 this.isOpening = true;
             },
-            // 发送弹幕
-            sendBarrage() {
-                this.$nextTick(() => {
-                    this.hasEntered = true;
-                    if (!this.wish) {
+            async submit() {
+                if (this.sent) {
+                    if (this.form.code.length === 4) {
+                        try {
+                            const response = await this.axios.post('/attends', {
+                                name: this.form.name,
+                                count: this.form.count,
+                                phone: this.form.phone,
+                                code: this.form.code
+                            });
+                            if (response.status === 200) {
+                                this.$router.push('/photos');
+                            } else {
+                                this.$notify({
+                                    group: 'foo',
+                                    text: '请输入正确的信息, 或者稍后再试!',
+                                    type: 'warn'
+                                })
+                            }
+                        } catch (err) {
+                            this.$notify({
+                                group: 'foo',
+                                text: '发生了错误, 或者稍后再试!',
+                                type: 'error'
+                            });
+                        }
+                    } else {
+                        this.$notify({
+                            group: 'foo',
+                            text: '请输入正确的验证码',
+                            type: 'error'
+                        });
+                    }
+                } else {
+                    if (this.form.phone.length !== 11) {
+                        this.$notify({
+                            group: 'foo',
+                            text: '请输入正确的手机号!',
+                            type: 'warn'
+                        });
                         return;
                     }
-                    this.isOpening = false;
-                    this.$refs.wishInput.blur();
-                    setTimeout(() => {
-                        this.$emit('sendBarrage', this.wish)
-                    }, 660)
-                })
-            },
-            async submit() {
-                try {
-                    const response = await this.axios.post('/attends', {
-                        name: this.form.name,
-                        count: this.form.count,
-                        phone: this.form.phone
-                    });
-                    if (response.status === 200) {
-                        this.$router.push('/photos');
+                    if (this.form.name.length === 0) {
+                        this.$notify({
+                            group: 'foo',
+                            text: '请输入名字!',
+                            type: 'warn'
+                        });
+                        return;
                     }
-                } catch (err) {
-
+                    try {
+                        const response = await this.axios.post('/codes', {
+                            phone: this.form.phone
+                        });
+                        if (response.status === 200) {
+                            this.sent = true;
+                        } else {
+                            this.$notify({
+                                group: 'foo',
+                                text: '请稍后再试!',
+                                type: 'warn'
+                            });
+                        }
+                    } catch (err) {
+                        this.$notify({
+                            group: 'foo',
+                            text: '发生了错误, 或者稍后再试!',
+                            type: 'error'
+                        });
+                    }
                 }
             },
             attend() {
