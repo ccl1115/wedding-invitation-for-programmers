@@ -42,7 +42,8 @@
                                         <input v-model="form.code" id="code" type="number"/>
                                     </div>
 
-                                    <button @click="submit">提交</button>
+                                    <button v-if="loading" @click="submit">提交</button>
+                                    <button v-if="!loading" disabled>加载中...</button>
                                 </div>
                             </div>
                         </swiper-slide>
@@ -78,6 +79,7 @@
                     code: '',
                 },
                 sent: false,
+                loading: false,
                 countdown: 0,
                 interval: 0,
             }
@@ -118,6 +120,7 @@
                     return;
                 }
                 try {
+                    this.loading = true;
                     const response = await this.axios.post('/codes', {
                         phone: this.form.phone
                     });
@@ -135,7 +138,9 @@
                             type: 'warn'
                         });
                     }
+                    this.loading = false;
                 } catch (err) {
+                    this.loading = false;
                     this.$notify({
                         group: 'foo',
                         text: '发生了错误, 或者稍后再试!',
@@ -147,6 +152,7 @@
                 if (this.sent) {
                     if (this.form.code.length === 4) {
                         try {
+                            this.loading = true;
                             const response = await this.axios.post('/attends', {
                                 name: this.form.name,
                                 count: this.form.count,
@@ -162,7 +168,9 @@
                                     type: 'warn'
                                 });
                             }
+                            this.loading = false;
                         } catch (err) {
+                            this.loading = false;
                             this.$notify({
                                 group: 'foo',
                                 text: '发生了错误, 或者稍后再试!',
