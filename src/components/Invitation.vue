@@ -6,7 +6,8 @@
                     <swiper :options="swiperOptions" ref="swiper">
                         <swiper-slide class="swiper-content swiper-no-swiping">
                             <div class="content-inside">
-                                <img class="content-inside-photo" src="https://wedding-store.oss-cn-chengdu.aliyuncs.com/photo001.jpeg">
+                                <img class="content-inside-photo"
+                                     src="https://wedding-store.oss-cn-chengdu.aliyuncs.com/photo001.jpeg">
                                 <h1>我们结婚啦!</h1>
                                 <p><b>李思颖 & 禹璐</b></p>
                                 <p>时间：2019年8月25日下午6点</p>
@@ -16,29 +17,32 @@
                         </swiper-slide>
                         <swiper-slide class="swiper-content swiper-no-swiping">
                             <div class="content-inside">
-                                <img src="https://wedding-store.oss-cn-chengdu.aliyuncs.com/baseline_arrow_back_black_18dp.png" @click="back"/>
+                                <img src="https://wedding-store.oss-cn-chengdu.aliyuncs.com/baseline_arrow_back_black_18dp.png"
+                                     @click="back"/>
                                 <h1>出席婚礼</h1>
                                 <form>
-                                    <div>
+                                    <div class="field">
                                         <label for="name"> 姓名 </label>
                                         <input v-model="form.name" id="name" type="text"/>
                                     </div>
-                                    <div>
+                                    <div class="field">
                                         <label for="count"> 人数 </label>
                                         <input v-model="form.count" id="count" type="number"/>
                                     </div>
-                                    <div>
+                                    <div class="field">
                                         <label for="phone"> 电话 </label>
                                         <input v-model="form.phone" id="phone" type="number"/>
                                     </div>
 
                                     <div v-if="sent">
-                                        <p>我们向你的手机发送了一条验证码<br>请查收.</p>
+                                        <p>为了验证你的身份<br>我们向你的手机发送了一条验证码<br>请查收并在下方输入</p>
+                                        <a @click="code">再次发送 ({{countdown}})</a>
+                                        <br>
                                         <label for="code">验证码</label>
                                         <input v-model="form.code" id="code" type="number"/>
                                     </div>
 
-                                    <button type="submit" @click="submit">提交</button>
+                                    <button @click="submit">提交</button>
                                 </form>
                             </div>
                         </swiper-slide>
@@ -46,7 +50,8 @@
                 </div>
                 <div class="cover-inside-left" :class="{'opening':isOpening}"></div>
                 <div class="cover-inside-right" :class="{'opening':isOpening}"></div>
-                <img class="cover-inside-seal" src="https://wedding-store.oss-cn-chengdu.aliyuncs.com/seal.png" @click="openInvitation"
+                <img class="cover-inside-seal" src="https://wedding-store.oss-cn-chengdu.aliyuncs.com/seal.png"
+                     @click="openInvitation"
                      :class="{'invitation-flight':isOpening}">
             </div>
         </div>
@@ -72,13 +77,71 @@
                     phone: '',
                     code: '',
                 },
-                sent: false
+                sent: false,
+                countdown: 0,
+                interval: 0,
+            }
+        },
+        watch: {
+            'form.code': function() {
+                this.sent = false;
             }
         },
         methods: {
             // 打开邀请函
             openInvitation() {
                 this.isOpening = true;
+            },
+            async code() {
+                if (this.countdown > 0) {
+                    this.$notify({
+                        group: 'foo',
+                        text: '请稍后再试!',
+                        type: 'warn'
+                    });
+                    return;
+                }
+                if (this.form.phone.length !== 11) {
+                    this.$notify({
+                        group: 'foo',
+                        text: '请输入正确的手机号!',
+                        type: 'warn'
+                    });
+                    return;
+                }
+                if (this.form.name.length === 0) {
+                    this.$notify({
+                        group: 'foo',
+                        text: '请输入名字!',
+                        type: 'warn'
+                    });
+                    return;
+                }
+                try {
+                    const response = await this.axios.post('/codes', {
+                        phone: this.form.phone
+                    });
+                    if (response.status === 200) {
+                        this.sent = true;
+                        const self = this;
+                        this.countdown = 60;
+                        this.interval = setInterval(() => {
+                            self.countdown -= 1;
+                        }, 1000);
+                    } else {
+                        this.$notify({
+                            group: 'foo',
+                            text: '请稍后再试!',
+                            type: 'warn'
+                        });
+                    }
+                } catch (err) {
+                    this.$notify({
+                        group: 'foo',
+                        text: '发生了错误, 或者稍后再试!',
+                        type: 'error'
+                    });
+                }
             },
             async submit() {
                 if (this.sent) {
@@ -114,42 +177,7 @@
                         });
                     }
                 } else {
-                    if (this.form.phone.length !== 11) {
-                        this.$notify({
-                            group: 'foo',
-                            text: '请输入正确的手机号!',
-                            type: 'warn'
-                        });
-                        return;
-                    }
-                    if (this.form.name.length === 0) {
-                        this.$notify({
-                            group: 'foo',
-                            text: '请输入名字!',
-                            type: 'warn'
-                        });
-                        return;
-                    }
-                    try {
-                        const response = await this.axios.post('/codes', {
-                            phone: this.form.phone
-                        });
-                        if (response.status === 200) {
-                            this.sent = true;
-                        } else {
-                            this.$notify({
-                                group: 'foo',
-                                text: '请稍后再试!',
-                                type: 'warn'
-                            });
-                        }
-                    } catch (err) {
-                        this.$notify({
-                            group: 'foo',
-                            text: '发生了错误, 或者稍后再试!',
-                            type: 'error'
-                        });
-                    }
+                    await this.code()
                 }
             },
             attend() {
@@ -166,6 +194,7 @@
     button {
         outline: none;
     }
+
     .wedding-invitation {
         position: fixed;
         top: 0;
@@ -306,7 +335,7 @@
 
                             label {
                                 margin: 4px 8px;
-                                font-size: 20px;
+                                font-size: 16px;
                             }
 
                             input {

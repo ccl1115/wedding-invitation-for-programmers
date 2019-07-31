@@ -1,7 +1,7 @@
 <template>
     <div id="app">
         <router-view/>
-        <notifications group="foo" positon="bottom center"/>
+        <notifications group="foo" position="bottom right"/>
     </div>
 </template>
 

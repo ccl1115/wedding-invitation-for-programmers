@@ -1,6 +1,7 @@
 <template>
     <transition name="fade">
         <div class="content">
+            <p class="title">留言板</p>
             <div v-for="(item, i) in stars" class="circle"
                  :class="{blink_1: item.blink === 'blink_1', blink_2: item.blink === 'blink_2', blink_3: item.blink === 'blink_3', blink_4: item.blink === 'blink_4', blink_5: item.blink === 'blink_5', scaleUp: i === index}"
                  :style="{left: item.left, top: item.top, width: item.width, height: item.height}">
@@ -16,8 +17,10 @@
 </template>
 
 <script>
-    function random(range, unit) {
-        let randNum = Math.floor(Math.random() * range) + 1;
+    function random(start, end, unit) {
+        console.log(arguments);
+        let randNum = start + Math.floor(Math.random() * (end - start)) + 1;
+        console.log(randNum);
         return `${randNum}${unit}`;
     }
 
@@ -42,18 +45,22 @@
                         let randRange5 = Math.floor(Math.random() * 5) + 1;
                         circle.blink = (`blink_${randRange5}`);
 
-                        let widthAndHeight = random(5, 'px');
+                        let widthAndHeight = random(1, 5, 'px');
                         circle.height = circle.width = widthAndHeight;
 
-                        circle.left = random(window.innerWidth, 'px');
-                        circle.top = random(window.innerHeight, 'px');
+                        circle.left = random(0, window.innerWidth, 'px');
+                        circle.top = random(300, window.innerHeight, 'px');
                         circle.message = this.message;
 
                         this.stars.push(circle);
+                        this.index = this.stars.length - 1;
                         this.message = '';
                     }
                 } catch (e) {
-                    alert('发生了错误, 请稍后再试!');
+                    this.$notify({
+                        text: '发生了错误, 请稍后再试!',
+                        type: 'error'
+                    });
                 }
             }
         },
@@ -65,11 +72,11 @@
                 let randRange5 = Math.floor(Math.random() * 5) + 1;
                 circle.blink = (`blink_${randRange5}`);
 
-                let widthAndHeight = random(5, 'px');
+                let widthAndHeight = random(1, 5, 'px');
                 circle.height = circle.width = widthAndHeight;
 
-                circle.left = random(window.innerWidth, 'px');
-                circle.top = random(window.innerHeight, 'px');
+                circle.left = random(0, window.innerWidth, 'px');
+                circle.top =  random(250, window.innerHeight, 'px');
                 circle.message = response.data.list[i].comment;
 
                 this.stars.push(circle);
@@ -88,6 +95,18 @@
     .content {
         background: linear-gradient(0deg, rgb(25, 25, 112), rgb(33, 20, 0) 30%), rgb(0, 0, 0) 80%;
         height: 100vh;
+        .title {
+            margin: 0 auto;
+            width: 80%;
+            height: 60px;
+            padding: 16px;
+            background-color: white;
+            border-bottom-left-radius: 8px;
+            border-bottom-right-radius: 8px;
+            font-size: larger;
+            font-weight: 600;
+            text-align: center;
+        }
         .input {
             position: fixed;
             bottom: 0;
@@ -105,7 +124,7 @@
                 background-color: white;
                 color: black;
                 border: none;
-                font-size: 30px;
+                font-size: 24px;
             }
         }
     }
@@ -130,7 +149,7 @@
 
     .scaleUp {
         left: 10% !important;
-        top: 30% !important;
+        top: 80px !important;
         width: 80% !important;
         height: 150px !important;
         animation: none !important;

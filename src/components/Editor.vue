@@ -9,10 +9,11 @@
         <p class="code">Last login: <span>{{ startDate }}</span> on ttys001</p>
         <!--代码编辑区-->
         <pre>
-      <code v-html="highlightedCode"></code>
-    </pre>
+          <code v-html="highlightedCode"></code>
+        </pre>
         <Executions :canExecute="canExecute" @onUpdating="scrollToBottom" @onFinish="canOpen = true"/>
-        <invitation :canOpen="canOpen" @sendBarrage="onAfterSending"/>
+        <div class="skip" @click="skip">跳过>></div>
+        <invitation :canOpen="canOpen"/>
     </div>
 </template>
 
@@ -24,11 +25,10 @@
 
     import Executions from './Executions'
     import Invitation from './Invitation'
-    import Barrage from './Barrage'
 
     export default {
         name: 'Editor',
-        components: {Executions, Invitation, Barrage},
+        components: {Executions, Invitation},
         data() {
             return {
                 startDate: '',
@@ -91,34 +91,33 @@
                     typing = requestAnimationFrame(step)
                 })
             },
-            // 发送弹幕之后
-            onAfterSending(wish) {
-                this.wish = wish
-                this.canOpen = false
-                setTimeout(() => {
-                    this.canStart = true
-                }, 800)
-            }
+            skip() {
+                this.canOpen = true;
+            },
         }
     }
 </script>
 
 <style lang="less">
     .wedding-editor {
-        position: absolute;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
-        padding: 15px;
-        padding-top: 50px;
+        padding: 50px 15px;
         overflow-x: hidden;
-        overflow-y: auto;
+        overflow-y: hidden;
         z-index: 1;
-        transform-origin: 0 0;
-        -webkit-transform-origin: 0 0;
-        transition: all 1.6s cubic-bezier(0.4, 0, 1, 1);
-        -webkit-transition: all 1.6s cubic-bezier(0.4, 0, 1, 1);
+
+        .skip {
+            position: absolute;
+            bottom: 20px;
+            color: black;
+            padding: 10px 20px;
+            right: 20px;
+            background-color: white;
+            border-radius: 20px;
+        }
 
         .editor-header {
             position: fixed;
