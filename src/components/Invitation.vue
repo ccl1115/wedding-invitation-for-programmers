@@ -129,7 +129,11 @@
                         const self = this;
                         this.countdown = 60;
                         this.interval = setInterval(() => {
-                            self.countdown -= 1;
+                            if (self.countdown < 0) {
+                                clearInterval(self.interval);
+                            } else {
+                                self.countdown -= 1;
+                            }
                         }, 1000);
                     } else {
                         this.$notify({
