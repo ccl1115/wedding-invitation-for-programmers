@@ -11,7 +11,7 @@
                                 <h1>我们结婚啦!</h1>
                                 <p><b>李思颖 & 禹璐</b></p>
                                 <p>时间：2019年8月25日下午6点</p>
-                                <p>地点：<b>凯里市半山酒店3楼</b></p>
+                                <p>地点：<b>{{address}}</b></p>
                                 <button class="attend" @click="attend">我要出席</button>
                             </div>
                         </swiper-slide>
@@ -82,6 +82,7 @@
                 loading: false,
                 countdown: 0,
                 interval: 0,
+                address: ''
             }
         },
         watch: {
@@ -129,7 +130,7 @@
                         const self = this;
                         this.countdown = 60;
                         this.interval = setInterval(() => {
-                            if (self.countdown < 0) {
+                            if (self.countdown < 1) {
                                 clearInterval(self.interval);
                             } else {
                                 self.countdown -= 1;
@@ -197,6 +198,14 @@
             },
             back() {
                 this.$refs.swiper.swiper.slideTo(0);
+            }
+        },
+        mounted() {
+            const type = this.$route.query['type'];
+            if (type === 'bride') {
+                this.address = '贵阳市花果园购物中心鸿福盛宴'
+            } else if (type === 'bridegroom') {
+                this.address = '凯里市半山酒店3楼'
             }
         }
     }
