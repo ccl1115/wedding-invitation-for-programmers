@@ -9,7 +9,7 @@
                                 <img class="content-inside-photo"
                                      src="https://wedding-store.oss-cn-chengdu.aliyuncs.com/photo001.jpeg">
                                 <h1>我们结婚啦!</h1>
-                                <p><b>李思颖 & 禹璐</b></p>
+                                <p><b>禹璐 & 李思颖</b></p>
                                 <p>时间：{{date}}</p>
                                 <p>地点：<b>{{address}}</b></p>
                                 <button class="attend" @click="attend">我要出席</button>
