@@ -162,7 +162,7 @@
                         name: this.form.name,
                         count: this.form.count,
                         phone: this.form.phone,
-                        type: this.type,
+                        type: this.form.type,
                     });
                     if (response.status === 200) {
                         this.$router.push('/photos');
@@ -194,11 +194,11 @@
             const type = this.$route.path;
             console.log(type);
             if (type === '/bride') {
-                this.type = 'bride';
-                this.address = '贵阳市花果园购物中心鸿福盛宴';
+                this.form.type = 'bride';
+                this.address = '贵阳市花果园购物中心鸿福盛宴4楼钻石厅';
                 this.date = '2019年8月24日下午6点';
             } else if (type === '/bridegroom') {
-                this.type = 'bridegroom';
+                this.form.type = 'bridegroom';
                 this.address = '凯里市半山酒店3楼';
                 this.date = '2019年8月25日下午6点';
             }
