@@ -9,7 +9,11 @@ Vue.use(VueRouter);
 
 const routes = [
     {
-        path: '/',
+        path: '/bride',
+        component: Wedding
+    },
+    {
+        path: '/bridegroom',
         component: Wedding
     },
     {
