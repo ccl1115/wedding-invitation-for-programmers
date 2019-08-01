@@ -44,6 +44,7 @@
 
                                     <button v-if="!loading" @click="submit">提交</button>
                                     <button v-if="loading" disabled>加载中...</button>
+                                    <p>登记出席有彩蛋哦</p>
                                 </div>
                             </div>
                         </swiper-slide>
