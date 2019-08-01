@@ -20,7 +20,7 @@
         height: 100%;
     }
 
-    input, input:before, input:after {
+    input, input:before, input:after, button, button:before, button:after {
         user-select: initial;
     }
 </style>
