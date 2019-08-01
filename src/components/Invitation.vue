@@ -10,7 +10,7 @@
                                      src="https://wedding-store.oss-cn-chengdu.aliyuncs.com/photo001.jpeg">
                                 <h1>我们结婚啦!</h1>
                                 <p><b>李思颖 & 禹璐</b></p>
-                                <p>时间：2019年8月25日下午6点</p>
+                                <p>时间：{{date}}</p>
                                 <p>地点：<b>{{address}}</b></p>
                                 <button class="attend" @click="attend">我要出席</button>
                             </div>
@@ -82,11 +82,12 @@
                 loading: false,
                 countdown: 0,
                 interval: 0,
-                address: ''
+                address: '',
+                date: ''
             }
         },
         watch: {
-            'form.phone': function() {
+            'form.phone': function () {
                 this.sent = false;
             }
         },
@@ -154,43 +155,31 @@
                 }
             },
             async submit() {
-                if (this.sent) {
-                    if (this.form.code.length === 4) {
-                        try {
-                            this.loading = true;
-                            const response = await this.axios.post('/attends', {
-                                name: this.form.name,
-                                count: this.form.count,
-                                phone: this.form.phone,
-                                code: this.form.code
-                            });
-                            if (response.status === 200) {
-                                this.$router.push('/photos');
-                            } else {
-                                this.$notify({
-                                    group: 'foo',
-                                    text: '请输入正确的信息, 或者稍后再试!',
-                                    type: 'warn'
-                                });
-                            }
-                            this.loading = false;
-                        } catch (err) {
-                            this.loading = false;
-                            this.$notify({
-                                group: 'foo',
-                                text: '发生了错误, 或者稍后再试!',
-                                type: 'error'
-                            });
-                        }
+                try {
+                    this.loading = true;
+                    const response = await this.axios.post('/attends', {
+                        name: this.form.name,
+                        count: this.form.count,
+                        phone: this.form.phone,
+                        type: this.$route.query['type']
+                    });
+                    if (response.status === 200) {
+                        this.$router.push('/photos');
                     } else {
                         this.$notify({
                             group: 'foo',
-                            text: '请输入正确的验证码',
-                            type: 'error'
+                            text: '请输入正确的信息, 或者稍后再试!',
+                            type: 'warn'
                         });
                     }
-                } else {
-                    await this.code()
+                    this.loading = false;
+                } catch (err) {
+                    this.loading = false;
+                    this.$notify({
+                        group: 'foo',
+                        text: '发生了错误, 或者稍后再试!',
+                        type: 'error'
+                    });
                 }
             },
             attend() {
@@ -203,9 +192,11 @@
         mounted() {
             const type = this.$route.query['type'];
             if (type === 'bride') {
-                this.address = '贵阳市花果园购物中心鸿福盛宴'
+                this.address = '贵阳市花果园购物中心鸿福盛宴';
+                this.date = '2019年8月24日下午6点';
             } else if (type === 'bridegroom') {
-                this.address = '凯里市半山酒店3楼'
+                this.address = '凯里市半山酒店3楼';
+                this.date = '2019年8月25日下午6点';
             }
         }
     }
